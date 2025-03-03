@@ -5,13 +5,16 @@ import time
 
 # Page Configuration
 st.set_page_config(
-    page_title="Hiring Deliverable",
+    page_title="Hiring Deliverable-BD sales",
     page_icon=":briefcase:",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # Header
+
+# Add a header with a divider
+st.header('Braindesk Data Project Optimization Pullouts', divider='rainbow')
 st.markdown("<h1 style='text-align: center; color: #4b72b0;'>Hiring Deliverable Data Cleaner</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center; color: #ff6347;'>Upload your CSV or Excel file to clean and analyze the hiring data</h3>", unsafe_allow_html=True)
 
@@ -89,7 +92,7 @@ footer = """
 .footer {position: fixed; left: 0; bottom: 0; width: 100%; background-color: #4b72b0; color: white; text-align: center; padding: 10px;}
 </style>
 <div class="footer">
-<p>Developed with ❤️ by Draup Suite | &copy; 2024 All Rights Reserved.</p>
+<p>&copy; 2025 All Rights Reserved.</p>
 </div>
 """
 st.markdown(footer, unsafe_allow_html=True)
