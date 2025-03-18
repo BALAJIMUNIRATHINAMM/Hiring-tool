@@ -5,6 +5,8 @@ import time
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 from format_jd import DashboardFormatter
+import os
+print(os.listdir("/"))
 
 # Ensure that the DashboardFormatter class is correctly defined in the format_jd module
 =======
