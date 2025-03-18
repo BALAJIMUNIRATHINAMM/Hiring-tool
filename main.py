@@ -3,9 +3,13 @@ import streamlit as st
 import io
 import time
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 from format_jd import DashboardFormatter
 
 # Ensure that the DashboardFormatter class is correctly defined in the format_jd module
+=======
+from ast import literal_eval
+>>>>>>> Stashed changes
 =======
 from ast import literal_eval
 >>>>>>> Stashed changes
@@ -19,6 +23,7 @@ st.set_page_config(
 )
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 # Increase the max elements allowed for Pandas Styler
 pd.set_option("styler.render.max_elements", 500000)
 
@@ -26,11 +31,16 @@ pd.set_option("styler.render.max_elements", 500000)
 st.markdown("<h1 style='text-align: center; color: #4b72b0;'>Hiring Deliverable Data Cleaner</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center; color: #ff6347;'>Upload your CSV or Excel file to clean and analyze the hiring data</h3>", unsafe_allow_html=True)
 =======
+=======
+>>>>>>> Stashed changes
 # Header
 st.markdown("""
     <h1 style='text-align: center; color: #4b72b0;'>Hiring Deliverable Data Cleaner</h1>
     <h3 style='text-align: center; color: #ff6347;'>Upload your CSV or Excel file to clean and analyze the hiring data</h3>
 """, unsafe_allow_html=True)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 # File uploader for data file
@@ -57,6 +67,7 @@ if uploaded_file is not None:
         st.stop()
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     # Data Cleaning
     if 'mvp_company_name' in df.columns:
         df = df.dropna(subset=['mvp_company_name'])
@@ -72,6 +83,8 @@ if uploaded_file is not None:
     }, regex=True, inplace=True)
     
 =======
+=======
+>>>>>>> Stashed changes
     # Ensure required column exists
     if 'mvp_company_name' not in df.columns:
         st.error("Error: The required column 'mvp_company_name' is missing from the file.")
@@ -79,6 +92,9 @@ if uploaded_file is not None:
 
     # Data Cleaning
     df.dropna(subset=['mvp_company_name'], inplace=True)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     df.fillna('-', inplace=True)
     df.replace({
@@ -93,7 +109,11 @@ if uploaded_file is not None:
     processing_time = time.time() - start_time
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     # Display data information
+=======
+    # Display Data Information
+>>>>>>> Stashed changes
 =======
     # Display Data Information
 >>>>>>> Stashed changes
@@ -103,7 +123,11 @@ if uploaded_file is not None:
     st.text(buffer.getvalue())
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     # Display the DataFrame (limited to first 500 rows to avoid rendering issues)
+=======
+    # Display Data Preview
+>>>>>>> Stashed changes
 =======
     # Display Data Preview
 >>>>>>> Stashed changes
@@ -113,7 +137,11 @@ if uploaded_file is not None:
     # Download Cleaned Data
     st.markdown("<h4 style='color: #2e8b57;'>Download Cleaned Data</h4>", unsafe_allow_html=True)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     csv = df.to_csv(index=False, encoding='utf-8-sig')
+=======
+    csv = df.to_csv(index=False).encode('utf-8')
+>>>>>>> Stashed changes
 =======
     csv = df.to_csv(index=False).encode('utf-8')
 >>>>>>> Stashed changes
@@ -124,6 +152,7 @@ if uploaded_file is not None:
         mime='text/csv'
     )
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     # Custom title input
     custom_title = st.text_input("Enter Custom Title for Formatted File", "Requested Accounts")
@@ -148,6 +177,9 @@ if uploaded_file is not None:
         )
 
     # Display processing time
+=======
+    # Display Processing Time
+>>>>>>> Stashed changes
 =======
     # Display Processing Time
 >>>>>>> Stashed changes
