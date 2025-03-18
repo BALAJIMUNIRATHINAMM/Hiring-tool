@@ -2,9 +2,13 @@ import pandas as pd
 import streamlit as st
 import io
 import time
+<<<<<<< Updated upstream
 from format_jd import DashboardFormatter
 
 # Ensure that the DashboardFormatter class is correctly defined in the format_jd module
+=======
+from ast import literal_eval
+>>>>>>> Stashed changes
 
 # Page Configuration
 st.set_page_config(
@@ -14,26 +18,45 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+<<<<<<< Updated upstream
 # Increase the max elements allowed for Pandas Styler
 pd.set_option("styler.render.max_elements", 500000)
 
 # Header
 st.markdown("<h1 style='text-align: center; color: #4b72b0;'>Hiring Deliverable Data Cleaner</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center; color: #ff6347;'>Upload your CSV or Excel file to clean and analyze the hiring data</h3>", unsafe_allow_html=True)
+=======
+# Header
+st.markdown("""
+    <h1 style='text-align: center; color: #4b72b0;'>Hiring Deliverable Data Cleaner</h1>
+    <h3 style='text-align: center; color: #ff6347;'>Upload your CSV or Excel file to clean and analyze the hiring data</h3>
+""", unsafe_allow_html=True)
+>>>>>>> Stashed changes
 
 # File uploader for data file
 uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
 
+def safe_eval(value):
+    """Safely evaluate string representations of lists."""
+    try:
+        return literal_eval(value) if isinstance(value, str) else value
+    except (ValueError, SyntaxError):
+        return []
+
 if uploaded_file is not None:
-    # Record start time
     start_time = time.time()
 
-    # Load the file into a DataFrame
-    if uploaded_file.name.endswith('.csv'):
-        df = pd.read_csv(uploaded_file)
-    else:
-        df = pd.read_excel(uploaded_file)
+    # Load the file
+    try:
+        if uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(uploaded_file, dtype=str)
+        else:
+            df = pd.read_excel(uploaded_file, dtype=str)
+    except Exception as e:
+        st.error(f"Error reading file: {e}")
+        st.stop()
 
+<<<<<<< Updated upstream
     # Data Cleaning
     if 'mvp_company_name' in df.columns:
         df = df.dropna(subset=['mvp_company_name'])
@@ -48,34 +71,60 @@ if uploaded_file is not None:
         '","': ';'
     }, regex=True, inplace=True)
     
-    df.fillna('-', inplace=True)
-    df.drop_duplicates(inplace=True)
+=======
+    # Ensure required column exists
+    if 'mvp_company_name' not in df.columns:
+        st.error("Error: The required column 'mvp_company_name' is missing from the file.")
+        st.stop()
 
-    # Calculate processing time
+    # Data Cleaning
+    df.dropna(subset=['mvp_company_name'], inplace=True)
+>>>>>>> Stashed changes
+    df.fillna('-', inplace=True)
+    df.replace({
+        r'\"]': '',
+        r'\["': '',
+        r'\[]': '-',
+        r'","': ';'
+    }, regex=True, inplace=True)
+    
+    df['business_function'] = df['business_function'].apply(lambda x: x.split(';') if isinstance(x, str) and ';' in x else x)
+    df.drop_duplicates(inplace=True)
     processing_time = time.time() - start_time
 
+<<<<<<< Updated upstream
     # Display data information
+=======
+    # Display Data Information
+>>>>>>> Stashed changes
     st.markdown("<h4 style='color: #2e8b57;'>Data Information</h4>", unsafe_allow_html=True)
     buffer = io.StringIO()
     df.info(buf=buffer)
-    s = buffer.getvalue()
-    st.text(s)
+    st.text(buffer.getvalue())
 
+<<<<<<< Updated upstream
     # Display the DataFrame (limited to first 500 rows to avoid rendering issues)
+=======
+    # Display Data Preview
+>>>>>>> Stashed changes
     st.markdown("<h4 style='color: #2e8b57;'>Job Data Preview</h4>", unsafe_allow_html=True)
     st.dataframe(df.head(500))
 
-    # Allow the user to download the cleaned data
+    # Download Cleaned Data
     st.markdown("<h4 style='color: #2e8b57;'>Download Cleaned Data</h4>", unsafe_allow_html=True)
+<<<<<<< Updated upstream
     csv = df.to_csv(index=False, encoding='utf-8-sig')
+=======
+    csv = df.to_csv(index=False).encode('utf-8')
+>>>>>>> Stashed changes
     st.download_button(
         label='Download CSV',
         data=csv,
         file_name='cleaned_data.csv',
-        mime='text/csv',
-        use_container_width=True
+        mime='text/csv'
     )
 
+<<<<<<< Updated upstream
     # Custom title input
     custom_title = st.text_input("Enter Custom Title for Formatted File", "Requested Accounts")
     
@@ -99,17 +148,19 @@ if uploaded_file is not None:
         )
 
     # Display processing time
+=======
+    # Display Processing Time
+>>>>>>> Stashed changes
     st.markdown(f"<p style='text-align: center; color: #4b72b0;'>Processing time: {processing_time:.2f} seconds</p>", unsafe_allow_html=True)
 else:
     st.warning("Please upload a CSV or Excel file to start processing.")
 
 # Footer
-footer = """
-<style>
-.footer {position: fixed; left: 0; bottom: 0; width: 100%; background-color: #4b72b0; color: white; text-align: center; padding: 10px;}
-</style>
-<div class="footer">
-<p>&copy; 2025 All Rights Reserved.</p>
-</div>
-"""
-st.markdown(footer, unsafe_allow_html=True)
+st.markdown("""
+    <style>
+    .footer {position: fixed; left: 0; bottom: 0; width: 100%; background-color: #4b72b0; color: white; text-align: center; padding: 10px;}
+    </style>
+    <div class="footer">
+    <p>Developed with ❤️ by Draup Suite | &copy; 2024 All Rights Reserved.</p>
+    </div>
+""", unsafe_allow_html=True)
